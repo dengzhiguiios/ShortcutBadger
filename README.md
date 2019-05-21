@@ -167,17 +167,17 @@ USAGE
 
 <br/>
 
-机型                  系统版本                            备注
+机型                  \t\t系统版本                            \t\t备注
 
-三星s8+            Android9.0                         通过
+三星s8+            \t\tAndroid9.0                         \t\t通过
 
-乐视Max2         Android6.0               角标数字只显示为1
+乐视Max2         \t\tAndroid6.0               \t\t角标数字只显示为1
 
-华为P9              Android8.0              通过,需要在AndroidManifest.xml申请权限
+华为P9              \t\tAndroid8.0              \t\t通过,需要在AndroidManifest.xml申请权限
 
-小米note4x       Android7.0                          通过
+小米note4x       \t\tAndroid7.0                          \t\t通过
 
-vivo/oppo          *                     不通过 , 需要联系官方申请白名单
+vivo/oppo          \t\t*                     \t\t不通过 , 需要联系官方申请白名单
 
 <br/>
 
@@ -311,10 +311,10 @@ LICENSE
 ​        
 ​        Copyright 2014 Leo Lin
 ​        
-        Licensed under the Apache License, Version 2.0 (the "License");
-        you may not use this file except in compliance with the License.
-        You may obtain a copy of the License at
-        
+​        Licensed under the Apache License, Version 2.0 (the "License");
+​        you may not use this file except in compliance with the License.
+​        You may obtain a copy of the License at
+​        
             http://www.apache.org/licenses/LICENSE-2.0
         
         Unless required by applicable law or agreed to in writing, software
