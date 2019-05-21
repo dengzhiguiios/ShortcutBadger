@@ -15,7 +15,7 @@ public interface Badger {
      * @param badgeCount Desired notification count
      * @throws ShortcutBadgeException
      */
-    void executeBadge(Context context, ComponentName componentName, int badgeCount) throws ShortcutBadgeException;
+    void executeBadge(Context context, ComponentName componentName, int badgeCount) throws Exception;
 
     /**
      * Called to let {@link ShortcutBadger} knows which launchers are supported by this badger. It should return a

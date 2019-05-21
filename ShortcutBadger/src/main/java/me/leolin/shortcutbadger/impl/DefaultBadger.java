@@ -44,6 +44,6 @@ public class DefaultBadger implements Badger {
         Intent intent = new Intent(INTENT_ACTION);
         return BroadcastHelper.resolveBroadcast(context, intent).size() > 0
                 || (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
-                    && BroadcastHelper.resolveBroadcast(context, new Intent(IntentConstants.DEFAULT_OREO_INTENT_ACTION)).size() > 0);
+                && BroadcastHelper.resolveBroadcast(context, new Intent(IntentConstants.DEFAULT_OREO_INTENT_ACTION)).size() > 0);
     }
 }

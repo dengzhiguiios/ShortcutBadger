@@ -1,78 +1,37 @@
 package me.leolin.shortcutbadger.impl;
 
 import android.content.ComponentName;
-import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.Build;
+import android.content.Intent;
 
 import java.util.Arrays;
 import java.util.List;
 
 import me.leolin.shortcutbadger.Badger;
-import me.leolin.shortcutbadger.ShortcutBadgeException;
-import me.leolin.shortcutbadger.util.CloseHelper;
+import me.leolin.shortcutbadger.util.BroadcastHelper;
+import me.leolin.shortcutbadger.util.Utils;
+
+import static me.leolin.shortcutbadger.util.Utils.UNABLE_TO_RESOLVE_INTENT_ERROR_;
 
 /**
  * @author Leo Lin
  */
 public class SamsungHomeBadger implements Badger {
-    private static final String CONTENT_URI = "content://com.sec.badge/apps?notify=true";
-    private static final String[] CONTENT_PROJECTION = new String[]{"_id", "class"};
-
-    private DefaultBadger defaultBadger;
-
     public SamsungHomeBadger() {
-        if (Build.VERSION.SDK_INT >= 21) {
-            defaultBadger = new DefaultBadger();
-        }
     }
 
     @Override
-    public void executeBadge(Context context, ComponentName componentName, int badgeCount) throws ShortcutBadgeException {
-        if (defaultBadger != null && defaultBadger.isSupported(context)) {
-            defaultBadger.executeBadge(context, componentName, badgeCount);
+    public void executeBadge(Context context, ComponentName componentName, int badgeCount) throws Exception {
+        Intent intent = new Intent("android.intent.action.BADGE_COUNT_UPDATE");
+        intent.putExtra("badge_count", badgeCount);
+        intent.putExtra("badge_count_package_name", context.getPackageName());
+        intent.putExtra("badge_count_class_name", componentName.getClassName());
+
+        if (Utils.getInstance().canResolveBroadcast(context.getApplicationContext(), intent)) {
+            BroadcastHelper.sendIntentExplicitly(context, intent);
         } else {
-            Uri mUri = Uri.parse(CONTENT_URI);
-            ContentResolver contentResolver = context.getContentResolver();
-            Cursor cursor = null;
-            try {
-                cursor = contentResolver.query(mUri, CONTENT_PROJECTION, "package=?", new String[]{componentName.getPackageName()}, null);
-                if (cursor != null) {
-                    String entryActivityName = componentName.getClassName();
-                    boolean entryActivityExist = false;
-                    while (cursor.moveToNext()) {
-                        int id = cursor.getInt(0);
-                        ContentValues contentValues = getContentValues(componentName, badgeCount, false);
-                        contentResolver.update(mUri, contentValues, "_id=?", new String[]{String.valueOf(id)});
-                        if (entryActivityName.equals(cursor.getString(cursor.getColumnIndex("class")))) {
-                            entryActivityExist = true;
-                        }
-                    }
-
-                    if (!entryActivityExist) {
-                        ContentValues contentValues = getContentValues(componentName, badgeCount, true);
-                        contentResolver.insert(mUri, contentValues);
-                    }
-                }
-            } finally {
-                CloseHelper.close(cursor);
-            }
+            throw new Exception(UNABLE_TO_RESOLVE_INTENT_ERROR_ + intent.toString());
         }
-    }
-
-    private ContentValues getContentValues(ComponentName componentName, int badgeCount, boolean isInsert) {
-        ContentValues contentValues = new ContentValues();
-        if (isInsert) {
-            contentValues.put("package", componentName.getPackageName());
-            contentValues.put("class", componentName.getClassName());
-        }
-
-        contentValues.put("badgecount", badgeCount);
-
-        return contentValues;
     }
 
     @Override

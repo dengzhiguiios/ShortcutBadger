@@ -7,7 +7,9 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
+import android.support.v4.app.NotificationCompat;
 
 import me.leolin.shortcutbadger.ShortcutBadger;
 
@@ -28,7 +30,7 @@ public class BadgeIntentService extends IntentService {
         super.onCreate();
         mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
     }
-    
+
     @Override
     public void onStart(Intent intent, int startId) {
         super.onStart(intent, startId);
@@ -42,14 +44,17 @@ public class BadgeIntentService extends IntentService {
             mNotificationManager.cancel(notificationId);
             notificationId++;
 
-            Notification.Builder builder = new Notification.Builder(getApplicationContext())
-                .setContentTitle("")
-                .setContentText("")
-                .setSmallIcon(R.drawable.ic_launcher);
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL)
+                    .setSmallIcon(getApplicationInfo().icon)
+                    .setWhen(System.currentTimeMillis())
+                    .setContentTitle("title")
+                    .setContentText("content num: ")
+                    .setTicker("ticker")
+                    .setAutoCancel(true)
+                    .setNumber(1);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 setupNotificationChannel();
-
                 builder.setChannelId(NOTIFICATION_CHANNEL);
             }
 
@@ -63,7 +68,9 @@ public class BadgeIntentService extends IntentService {
     private void setupNotificationChannel() {
         NotificationChannel channel = new NotificationChannel(NOTIFICATION_CHANNEL, "ShortcutBadger Sample",
                 NotificationManager.IMPORTANCE_DEFAULT);
-
+        channel.enableLights(true); //是否在桌面icon右上角展示小红点
+        channel.setLightColor(Color.RED); //小红点颜色
+        channel.setShowBadge(true); //是否在久按桌面图标时显示此渠道的通知
         mNotificationManager.createNotificationChannel(channel);
     }
 }
