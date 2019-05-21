@@ -167,17 +167,17 @@ USAGE
 
 <br/>
 
-机型                  \t\t系统版本                            \t\t备注
+机型                  &nbsp;&nbsp;&nbsp;系统版本                            &nbsp;&nbsp;&nbsp;备注
 
-三星s8+            \t\tAndroid9.0                         \t\t通过
+三星s8+            &nbsp;&nbsp;&nbsp;Android9.0                         &nbsp;&nbsp;&nbsp;通过
 
-乐视Max2         \t\tAndroid6.0               \t\t角标数字只显示为1
+乐视Max2         &nbsp;&nbsp;&nbsp;Android6.0               &nbsp;&nbsp;&nbsp;角标数字只显示为1
 
-华为P9              \t\tAndroid8.0              \t\t通过,需要在AndroidManifest.xml申请权限
+华为P9              &nbsp;&nbsp;&nbsp;Android8.0              &nbsp;&nbsp;&nbsp;通过,需要在AndroidManifest.xml申请权限
 
-小米note4x       \t\tAndroid7.0                          \t\t通过
+小米note4x       &nbsp;&nbsp;&nbsp;Android7.0                          &nbsp;&nbsp;&nbsp;通过
 
-vivo/oppo          \t\t*                     \t\t不通过 , 需要联系官方申请白名单
+vivo/oppo          &nbsp;&nbsp;&nbsp;*                     &nbsp;&nbsp;&nbsp;不通过 , 需要联系官方申请白名单
 
 <br/>
 
@@ -315,8 +315,8 @@ LICENSE
 ​        you may not use this file except in compliance with the License.
 ​        You may obtain a copy of the License at
 ​        
-            http://www.apache.org/licenses/LICENSE-2.0
-        
+​            http://www.apache.org/licenses/LICENSE-2.0
+​        
         Unless required by applicable law or agreed to in writing, software
         distributed under the License is distributed on an "AS IS" BASIS,
         WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
