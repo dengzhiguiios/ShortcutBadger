@@ -141,7 +141,7 @@ USAGE
 ===================================
 <br/>1. git克隆或者下载zip包
 
-<br/>2. ShortcutBadger作为module导入到自己项目中
+<br/>2. 子目录ShortcutBadger作为module导入到自己项目中
 
 <br/>3. 对应用添加角标(注意: 添加角标要伴随着通知一起,通知在,角标在,通知不在,角标不在)
 
@@ -156,7 +156,12 @@ USAGE
 
         ShortcutBadger.removeCount(context);
 或者
-​        ShortcutBadger.applyCount(context, 0);
+​  
+
+```
+      ShortcutBadger.applyCount(context, 0);
+```
+
 <br/>
 
 5.开启通知示例请看.\SampleApp\src\main\java\me\leolin\shortcutbadger\example\BadgeIntentService.java(要在AndroidManifest.xml注册服务)<br/>
