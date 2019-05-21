@@ -3,6 +3,8 @@ ShortcutBadger: [![Maven Central](https://maven-badges.herokuapp.com/maven-centr
 
 The ShortcutBadger makes your Android App show the count of unread messages as a badge on your App shortcut!
 
+原开源项目地址: https://github.com/leolin310148/ShortcutBadger
+
 # Supported launchers:<br/>
 
 <table>
@@ -137,35 +139,46 @@ works or not may be downloaded from
 
 USAGE
 ===================================
-<br/>1. Add mavenCentral to your build script.
+<br/>1. git克隆或者下载zip包
 
-        repositories {
-            mavenCentral()
-        }
-    
-<br/>2. Add dependencies for ShortcutBadger, it's available from maven now.
-        
-        dependencies {
-            implementation "me.leolin:ShortcutBadger:1.1.22@aar"
-        }
+<br/>2. ShortcutBadger作为module导入到自己项目中
 
-<br/>3. Add the codes below:
+<br/>3. 对应用添加角标(注意: 添加角标要伴随着通知一起,通知在,角标在,通知不在,角标不在)
 
+        //添加角标
         int badgeCount = 1;
-        ShortcutBadger.applyCount(context, badgeCount); //for 1.1.4+
-        ShortcutBadger.with(getApplicationContext()).count(badgeCount); //for 1.1.3
+        ShortcutBadger.applyCount(context, badgeCount);
         
-<br/>4. If you want to remove the badge
-        
-        ShortcutBadger.removeCount(context); //for 1.1.4+
-        ShortcutBadger.with(getApplicationContext()).remove();  //for 1.1.3
-or
-        
-        ShortcutBadger.applyCount(context, 0); //for 1.1.4+
-        ShortcutBadger.with(getApplicationContext()).count(0); //for 1.1.3
+        //发送通知
+        startService(new Intent(MainActivity.this, BadgeIntentService.class).putExtra("badgeCount", badgeCount));
+
+<br/>4. 手动清除应用角标
+
+        ShortcutBadger.removeCount(context);
+或者
+​        ShortcutBadger.applyCount(context, 0);
 <br/>
+
+5.开启通知示例请看.\SampleApp\src\main\java\me\leolin\shortcutbadger\example\BadgeIntentService.java(要在AndroidManifest.xml注册服务)<br/>
+
+
+
+## **测试说明**
+
 <br/>
-<br/>
+
+机型                  系统版本                            备注
+
+三星s8+            Android9.0                         通过
+
+乐视Max2         Android6.0               角标数字只显示为1
+
+华为P9              Android8.0              通过,需要在AndroidManifest.xml申请权限
+
+小米note4x       Android7.0                          通过
+
+vivo/oppo          *                     不通过 , 需要联系官方申请白名单
+
 <br/>
 
 
@@ -179,7 +192,7 @@ ABOUT Google Play Developer Term Violations
 If you receive a message from Google containing something like this:<br/> 
 
         REASON FOR WARNING: Violation of section 4.4 of the Developer Distribution Agreement.
-        
+
 please use version 1.1.0+!
 
 
@@ -295,9 +308,9 @@ CHANGE LOG
 LICENSE
 ===================================
 <br/>
-        
-        Copyright 2014 Leo Lin
-        
+​        
+​        Copyright 2014 Leo Lin
+​        
         Licensed under the Apache License, Version 2.0 (the "License");
         you may not use this file except in compliance with the License.
         You may obtain a copy of the License at
